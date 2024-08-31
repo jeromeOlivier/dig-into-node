@@ -2,26 +2,36 @@
 
 "use strict";
 
-const path = require('path');
+const util = require("util");
+const path = require("path");
+const fs = require("fs");
+const getStdin = require("get-stdin");
 
-const args = require('minimist')(process.argv.slice(2), {
-  boolean: ['help'],
-  string: ['file']
+const args = require("minimist")(process.argv.slice(2), {
+  boolean: ["help", "in"],
+  string: ["file"],
 });
 
 if (args.help) {
   printHelp();
+} else if (args.in || args._.includes("-")) {
+  getStdin().then(processFile).catch(error);
 } else if (args.file) {
-  console.log(args.file);
+  fs.readFile(path.resolve(args.file), function onContents(err, contents) {
+    if (err) {
+      error(err.toString());
+    } else {
+      processFile(contents.toString());
+    }
+  });
 } else {
-  error('incorrect usage', true);
+  error("incorrect usage", true);
 }
 
-console.log(args) 
-
-
-// printHelp();
-
+function processFile(contents) {
+  contents = contents.toUpperCase();
+  process.stdout.write(contents);
+}
 
 function error(msg, includeHelp = false) {
   console.log(msg);
@@ -31,10 +41,12 @@ function error(msg, includeHelp = false) {
   }
 }
 
+// *******************************************
 function printHelp() {
-  console.log('ex1 usage:');
-  console.log('');
-  console.log('--help              print this help');
-  console.log('--file={filename}   print file');
-  console.log('');
+  console.log("ex1 usage:");
+  console.log("");
+  console.log("--help              print this help");
+  console.log("--file={filename}   print file");
+  console.log("--in, -             process stdin");
+  console.log("");
 }

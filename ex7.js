@@ -5,7 +5,6 @@
 var util = require("util");
 // var childProc = require("child_process");
 
-
 // ************************************
 
 const HTTP_PORT = 8039;
@@ -13,12 +12,10 @@ const HTTP_PORT = 8039;
 
 var delay = util.promisify(setTimeout);
 
-
 main().catch(console.error);
-
 
 // ************************************
 
 async function main() {
-	// console.log(`Load testing http://localhost:${HTTP_PORT}...`);
+  // console.log(`Load testing http://localhost:${HTTP_PORT}...`);
 }

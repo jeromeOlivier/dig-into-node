@@ -1,0 +1,17 @@
+{
+  "name": "dig-into-node",
+  "version": "1.0.0",
+  "main": "ex1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write \"**/*.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "get-stdin": "^8.0.0",
+    "prettier": "^3.3.3"
+  }
+}
